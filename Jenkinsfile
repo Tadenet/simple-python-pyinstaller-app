@@ -29,6 +29,15 @@ pipeline {
 			}
 		}
 	}
-
+	stage('SonarQube') {
+                steps {
+                script {
+                 scannerHome = tool 'sonarqube1';
+                }
+                withSonarQubeEnv('SonarQubeScanner1') {
+                        sh "${scannerHome}/bin/sonar-scanner"
+                }
+                }
+        }
     }
 }
