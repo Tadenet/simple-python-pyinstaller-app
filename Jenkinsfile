@@ -13,22 +13,22 @@ pipeline {
             }
         }
 	stage('Test') {
-            agent {
-                docker {
-                    image 'qnib/pytest'
-                }
-            }
-            steps {
-                sh 'py.test --junit-xml test-reports/results.xml sources/test_c$
-                sh 'coverage run --source=./sources sources/test_calc.py'
-                sh 'coverage xml -o test-reports/coverage.xml'
-            }
-	    post {
-                always {
-                    junit 'test-reports/results.xml'
-                }
-            }
-        }
+		agent {
+			docker {
+				image 'qnib/pytest'
+			}
+		}
+		steps {
+			sh 'py.test --junit-xml test-reports/results.xml sources/test_c$
+			sh 'coverage run --source=./sources sources/test_calc.py'
+			sh 'coverage xml -o test-reports/coverage.xml
+		}
+		post {
+			always {
+				junit 'test-reports/results.xml'
+			}
+		}
+	}
 
     }
 }
